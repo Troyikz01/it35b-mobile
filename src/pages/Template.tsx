@@ -18,3 +18,5 @@ const Template: React.FC = () => {
             </IonPage>
     );
 };
+
+export default Template;
