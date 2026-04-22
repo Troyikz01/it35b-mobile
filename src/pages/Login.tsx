@@ -23,7 +23,7 @@ const Login: React.FC = () => {
                     <IonButton expand='full' onClick={doLogin}>
                         Login
                     </IonButton>
-                    <h1>Login</h1>
+                    <h1></h1>
                 </IonContent>   
             </IonPage>
     );
