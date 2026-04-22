@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonList, IonMenuButton, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
 import { chatboxOutline, shareOutline, thumbsUpOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 
 const Search:React.FC = () => {
+    
     const games = [
     {name: 'Pokemon Yellow', details:"WOW"},
     {name: 'Mega Man X', details:"MAGIC"},
