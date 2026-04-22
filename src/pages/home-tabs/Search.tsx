@@ -25,7 +25,7 @@ const Search:React.FC = () => {
         },400);
 
         return () => clearTimeout(debounce);
-    },[searchText,games]);
+    },[searchText]);
 
     return (
         <IonPage>
