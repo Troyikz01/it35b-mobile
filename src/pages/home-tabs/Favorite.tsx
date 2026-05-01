@@ -1,5 +1,4 @@
 import {IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import Feed from './feed';
 
 const Favorite: React.FC = () => {
     return (

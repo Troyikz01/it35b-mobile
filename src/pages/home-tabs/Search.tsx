@@ -1,21 +1,91 @@
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonList, IonMenuButton, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
+import { chatboxOutline, shareOutline, thumbsUpOutline } from 'ionicons/icons';
+import { useEffect, useState } from 'react';
 
-const Search: React.FC = () => {
+const Search:React.FC = () => {
+    
+    const games = [
+    {name: 'Pokemon Yellow', details:"WOW"},
+    {name: 'Mega Man X', details:"MAGIC"},
+    {name: 'The Legend of Zelda', details:"THIS IS COOL"},
+    {name: 'Pac-Man', details:"MAGIC"},
+    {name: 'Super Mario World', details:"THIS IS GREAT"}
+    ]
+    
+    const [searchText, setSearchText] = useState('');
+    const [filtered,setFilteredGames] = useState(games);
+
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+            const filtered = games.filter(game=>
+                game.name.toLowerCase().includes(searchText.toLowerCase())
+            );
+            setFilteredGames(filtered);
+        },400);
+
+        return () => clearTimeout(debounce);
+    },[searchText]);
+
     return (
-            <IonPage>
-                <IonHeader>
+        <IonPage>
+            <IonHeader>
                     <IonToolbar>
-                    <IonButtons slot='start'>
-                    <IonMenuButton></IonMenuButton>
-                    </IonButtons>
-                    <IonTitle>Search</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                        <IonButtons slot="start">
+                            <IonMenuButton></IonMenuButton>
+                        </IonButtons>
+                        <IonTitle>Search</IonTitle>
+                </IonToolbar>
+            </IonHeader>
 
-                <IonContent fullscreen>
-                 <h1>Search</h1>
-                </IonContent>   
-            </IonPage>
+            <IonContent className="ion-padding">
+                <IonSearchbar placeholder = "Search Games"
+                value={searchText}
+                debounce = {0}
+                onIonInput={(e) => setSearchText(e.detail.value!)}
+                >
+                </IonSearchbar>
+                    <IonList>
+                                        {filtered.map((item,index) => (
+                                    <IonCard key={index}>
+                                    <img alt="Silhouette of mountains" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL8KvdLcsaPGSB33e2CL7v5zFT1ZpiNKQ0AA&s" />
+                                    <IonCardHeader>
+                                        <IonCardTitle>{item.name}</IonCardTitle>
+                                        <IonCardSubtitle>{item.details}</IonCardSubtitle>
+                                    </IonCardHeader>
+                    
+                    
+                    
+                                    <IonCardContent></IonCardContent>
+                                    <IonGrid>
+                                        <IonRow>
+                                        <IonCol>
+                                            <IonButton fill="clear" expand="full">
+                                                <IonIcon icon={thumbsUpOutline}></IonIcon>
+                                                <IonLabel style={{ marginLeft: '5px' }}>Like</IonLabel>
+                                            </IonButton>
+                                        </IonCol>
+                                        <IonCol>
+                                            <IonButton fill="clear" expand="full">
+                                                <IonIcon icon={chatboxOutline}></IonIcon>
+                                                <IonLabel style={{ marginLeft: '5px' }}>Comment</IonLabel>
+                                            </IonButton>
+                                        </IonCol>
+                                        <IonCol>
+                                            <IonButton fill="clear" expand="full">
+                                                <IonIcon icon={shareOutline}></IonIcon>
+                                                <IonLabel style={{ marginLeft: '5px' }}>Share</IonLabel>
+                                            </IonButton>
+                                        </IonCol>
+                                    </IonRow>
+                                </IonGrid>
+                            </IonCard>
+                    
+                                ))}
+                                     </IonList>
+                
+                </IonContent>
+        </IonPage>
     );
 };
 
