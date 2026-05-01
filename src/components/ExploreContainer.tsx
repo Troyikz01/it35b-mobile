@@ -1,14 +1,51 @@
-import './ExploreContainer.css';
-import { IonInput, IonInputPasswordToggle } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import {
+  IonContent,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  IonList,
+  IonItem,
+  IonAvatar,
+  IonLabel,
+} from '@ionic/react';
 
-interface ContainerProps { }
+function Example() {
+  const [items, setItems] = useState<string[]>([]);
 
-const ExploreContainer: React.FC<ContainerProps> = () => {
+  const generateItems = () => {
+    const newItems = [];
+    for (let i = 0; i < 50; i++) {
+      newItems.push(`Item ${1 + items.length + i}`);
+    }
+    setItems([...items, ...newItems]);
+  };
+
+  useEffect(() => {
+    generateItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <IonInput type="password" label="Password" value="NeverGonnaGiveYouUp">
-      <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
-    </IonInput>
+    <IonContent>
+      <IonList>
+        {items.map((item, index) => (
+          <IonItem key={item}>
+            <IonAvatar slot="start">
+              <img src={'https://picsum.photos/80/80?random=' + index} alt="avatar" />
+            </IonAvatar>
+            <IonLabel>{item}</IonLabel>
+          </IonItem>
+        ))}
+      </IonList>
+      <IonInfiniteScroll
+        onIonInfinite={(event) => {
+          generateItems();
+          setTimeout(() => event.target.complete(), 500);
+        }}
+      >
+        <IonInfiniteScrollContent></IonInfiniteScrollContent>
+      </IonInfiniteScroll>
+    </IonContent>
   );
-};
-
-export default ExploreContainer;
+}
+export default Example;
